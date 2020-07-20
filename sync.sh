@@ -5,6 +5,7 @@ localparentdir=$1
 bucket=$2
 bucketdir=$3
 
+remotedest="s3://${bucket}/${bucketdir}/"
 synclog=/var/log/local-to-internet/sync.log
 errorlog=/var/log/local-to-internet/error.log
 
@@ -17,6 +18,7 @@ echo "--START--" >> "${synclog}"
 echo "--START--" >> "${errorlog}"
 date >> "${synclog}"
 date >> "${errorlog}"
-"${s3cmd}" sync --acl-public --delete-after "${localparentdir}" "s3://${bucket}/${bucketdir}" >> "${synclog}" 2>> "${errorlog}"
+echo "From ${localparentdir} to ${remotedest}" >> "${synclog}"
+"${s3cmd}" sync --acl-public --delete-after "${localparentdir}" "${remotedest}" >> "${synclog}" 2>> "${errorlog}"
 echo "--END--" >> "${synclog}"
 echo "--END--" >> "${errorlog}"
