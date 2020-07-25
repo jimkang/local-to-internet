@@ -10,7 +10,7 @@ synclog=/var/log/local-to-internet/sync.log
 errorlog=/var/log/local-to-internet/error.log
 
 if [[ ! $localparentdir ]] || [[ ! $bucket ]] || [[ ! $bucketdir ]]; then
-  printf "Usage: ./sync-to-internet.sh <directory path on server that has directories to be synced, e.g. /usr/share/nginx/html> <bucket name> <bucket directory>\n\nThis script depends on the s3cmd auth already having been done.";
+  printf "Usage: ./sync.sh <directory path on server that has directories to be synced, e.g. /usr/share/nginx/html> <bucket name> <bucket directory>\n\nThis script depends on the s3cmd auth already having been done.";
   exit 1;
 fi
 

@@ -20,3 +20,5 @@ Make sure `/var/log/local-to-internet` exists on that server and that the cron u
 Then, schedule it in cron. e.g.
 
     57 * * * * cd /opt/local-to-internet/sync.sh /usr/share/my-web-sites/ mybucket web
+
+Sometimes, the directory is so large that s3cmd seems to do nothing for over an hour (because I imagine it's calculating diffs). In those cases, it might be better to use `sync-subdir-at-a-time` which will go through the subdirectories of the directory you specify and issue an s3cmd for each of those, so that you can see things happen in the log and at least get partial results if the machine goes down or something.
