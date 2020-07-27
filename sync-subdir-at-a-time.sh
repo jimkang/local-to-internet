@@ -1,5 +1,6 @@
 #!/bin/bash
 
+s3cmd=/usr/local/bin/s3cmd
 localparentdir=$1
 bucket=$2
 bucketdir=$3
@@ -13,6 +14,17 @@ if [[ ! $localparentdir ]] || [[ ! $bucket ]] || [[ ! $bucketdir ]]; then
   exit 1;
 fi
 
+# Non-recursively sync contents of parent dir.
+echo "--START--" >> "${synclog}"
+echo "--START--" >> "${errorlog}"
+echo "Moving contents (non-recursively) fo ${localparentdir} to ${remotedest}" >> "${synclog}"
+"${s3cmd}" sync --acl-public --delete-after --exclude '.git/' "${localparentdir}/*" "${remotedest}" >> "${synclog}" 2>> "${errorlog}"
+date >> "${synclog}"
+date >> "${errorlog}"
+echo "--END--" >> "${synclog}"
+echo "--END--" >> "${errorlog}"
+
+# Sync subdirs
 for dir in $localparentdir/*/
 do
     subdir=$(basename "$dir")
