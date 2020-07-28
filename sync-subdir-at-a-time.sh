@@ -17,8 +17,9 @@ fi
 # Non-recursively sync contents of parent dir.
 echo "--START--" >> "${synclog}"
 echo "--START--" >> "${errorlog}"
-echo "Moving contents (non-recursively) fo ${localparentdir} to ${remotedest}" >> "${synclog}"
-"${s3cmd}" sync --acl-public --delete-after --exclude '.git/' "${localparentdir}/*" "${remotedest}" >> "${synclog}" 2>> "${errorlog}"
+echo "Moving two files (non-recursively) from ${localparentdir} to ${remotedest}" >> "${synclog}"
+"${s3cmd}" put --acl-public --delete-after --exclude '.git/' "${localparentdir}/index.html" "${remotedest}" >> "${synclog}" 2>> "${errorlog}"
+"${s3cmd}" put --acl-public --delete-after --exclude '.git/' "${localparentdir}/app.css" "${remotedest}" >> "${synclog}" 2>> "${errorlog}"
 date >> "${synclog}"
 date >> "${errorlog}"
 echo "--END--" >> "${synclog}"
