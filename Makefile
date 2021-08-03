@@ -13,3 +13,6 @@ sync:
 
 pushall: sync
 	git push origin master
+
+extsync:
+	rsync -a $(HOMEDIR) $(extuser)@$(extserver):/opt/ --exclude node_modules/
